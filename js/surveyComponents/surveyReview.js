@@ -30,8 +30,8 @@ export const surveyReviewForm = () => {
     surveyHTML += `</div>`
     surveyHTML += `<div class="col-md-4">`
     surveyHTML += `<label for="inputState" class="form-label">State</label>`
-    surveyHTML += `<select size="7" id="inputState" class="form-select" required>`
-    surveyHTML += `<option selected>Select State</option>`
+    surveyHTML += `<select id="inputState" class="form-select" required>`
+    surveyHTML += `<option selected value="${parsedSurveyInput.state}" disabled>Select State</option>`
     surveyHTML += `<option value="AL">Alabama</option>
                     <option value="AK">Alaska</option>
                     <option value="AZ">Arizona</option>
@@ -103,7 +103,7 @@ export const surveyReviewForm = () => {
     surveyHTML += `</div>`
     return surveyHTML
 }
-
+//doesnt submit anything to db due to no endpoint
 mainContainer.addEventListener("click", (event) => {
     if(event.target.id.startsWith("btnSubmit")) {
         postToApi(parsedSurveyInput)

@@ -1,4 +1,4 @@
-
+//definitely not needed
 export const landingPageRender = () => {
     let landingPageHTML = ``
     landingPageHTML += `<div class="container text-center">`

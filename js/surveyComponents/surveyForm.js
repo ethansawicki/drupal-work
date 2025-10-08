@@ -7,7 +7,7 @@ export let surveyObject = {}
 const surveyDelay = 1000
 
 let timer;
-
+//still needs form validation
 export const surveyForm = () => {
     let surveyHTML = ``
     surveyHTML += `<form id="surveyFormInput" class="row g-3">`
@@ -33,7 +33,7 @@ export const surveyForm = () => {
     surveyHTML += `</div>`
     surveyHTML += `<div class="col-md-4">`
     surveyHTML += `<label for="inputState" class="form-label">State</label>`
-    surveyHTML += `<select size="7" id="inputState" class="form-select" required>`
+    surveyHTML += `<select id="inputState" class="form-select" required>`
     surveyHTML += `<option selected>Select State</option>`
     surveyHTML += `<option value="AL">Alabama</option>
                     <option value="AK">Alaska</option>

@@ -1,6 +1,8 @@
 import { routes } from "./spaRouter/router.js";
 import {mainPhotoContainer} from "./photoComponents/photosRender.js"
 import { getFromApi } from "./fetch.js";
+
+//ignore most things in here if not all.
 const mainContainer = document.querySelector('#mainContainer')
 
 const state = {

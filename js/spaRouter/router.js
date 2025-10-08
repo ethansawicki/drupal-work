@@ -1,6 +1,6 @@
 import { landingPageRender } from "../landingComponents/landingPageRender.js";
 import { surveyForm } from "../surveyComponents/surveyForm.js";
-
+//not needed used this for me to get around locally
 export const routes = {
     '#/': landingPageRender(),
     '#/survey': surveyForm(),
