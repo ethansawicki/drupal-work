@@ -1,37 +1,38 @@
-import { surveyReviewForm } from "./surveyReview.js"
-
+import { postToApi } from "../fetch.js"
 const mainContainer = document.querySelector("#mainContainer")
 
 export let surveyObject = {}
-
+const state = []//Move states to dynamically add one via the select drop down
 const surveyDelay = 1000
-
+const surveyInput = sessionStorage.getItem("survey_input")
+const parsedSurveyInput = JSON.parse(surveyInput)
 let timer;
-//still needs form validation
+
+//still needs form validation & styling is set via class="" value
 export const surveyForm = () => {
     let surveyHTML = ``
     surveyHTML += `<form id="surveyFormInput" class="row g-3">`
     surveyHTML += `<div class="col-md-6">`
     surveyHTML += `<label for="inputFirstName" class="form-label">First Name</label>`
-    surveyHTML += `<input type="text" placeholder="eg. John" class="form-control" id="inputFirstName" required></input>`
+    surveyHTML += `<input type="text" placeholder="eg. John" class="form-control" value="" id="inputFirstName" required></input>`
     surveyHTML += `</div>`
     surveyHTML += `<div class="col-md-6">`
     surveyHTML += `<label for="inputLastName" class="form-label">Last Name</label>`
-    surveyHTML += `<input type=text placeholder="eg. Doe" class="form-control" id="inputLastName" required></input>`
+    surveyHTML += `<input type=text placeholder="eg. Doe" class="form-control" value="" id="inputLastName" required></input>`
     surveyHTML += `</div>`
     surveyHTML += `<div class="col-12">`
     surveyHTML += `<label for="inputAddress" class="form-label">Address</label>`
-    surveyHTML += `<input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" required></input>`
+    surveyHTML += `<input type="text" class="form-control" id="inputAddress" value="" placeholder="1234 Main St" required></input>`
     surveyHTML += `</div>`
     surveyHTML += `<div class="col-md-12">`
     surveyHTML += `<label for="inputAddress2" class="form-label">Address 2</label>`
-    surveyHTML += `<input type="text" class="form-control" id="inputAddress2" placeholder="Apt, Studio, or Floor #"></input>`
+    surveyHTML += `<input type="text" class="form-control" id="inputAddress2" value="" placeholder="Apt, Studio, or Floor #"></input>`
     surveyHTML += `</div>`
     surveyHTML += `<div class="col-md-6">`
     surveyHTML += `<label for="inputCity" class="form-label">City</label>`
-    surveyHTML += `<input type="text" class="form-control" id="inputCity" required></input>`
+    surveyHTML += `<input type="text" class="form-control" id="inputCity" value="" required></input>`
     surveyHTML += `</div>`
-    surveyHTML += `<div class="col-md-4">`
+    surveyHTML += `<div class="col-md-6">`
     surveyHTML += `<label for="inputState" class="form-label">State</label>`
     surveyHTML += `<select id="inputState" class="form-select" required>`
     surveyHTML += `<option selected>Select State</option>`
@@ -90,19 +91,23 @@ export const surveyForm = () => {
     surveyHTML += `</div>`
     surveyHTML += `<div class="col-md-6">`
     surveyHTML += `<label for="homePhoneNumber" class="form-label">Home Phone Number</label>`
-    surveyHTML += `<input type="tel" class="form-control" id="homePhoneNumber"></input>`
+    surveyHTML += `<input type="tel" class="form-control" id="homePhoneNumber" value=""></input>`
     surveyHTML += `</div>`
     surveyHTML += `<div class="col-md-6">`
     surveyHTML += `<label for="mobilePhoneNumber" class="form-label">Mobile Phone Number</label>`
-    surveyHTML += `<input type="tel" class="form-control" id="mobilePhoneNumber" required></input>`
+    surveyHTML += `<input type="tel" class="form-control" id="mobilePhoneNumber" value="" required></input>`
+    surveyHTML += `</div>`
+    surveyHTML += `<div class="col-md-6">`
+    surveyHTML += `<label for="inputEmail" class="form-label">Email Address</label>`
+    surveyHTML += `<input type="email" class="form-control" id="inputEmail" value="" placeholder="emailaddress@example.com" required></input>`
     surveyHTML += `</div>`
     surveyHTML += `<div class="col-md-6">`
     surveyHTML += `<label for="feedback" class="form-label">Feedback</label>`
-    surveyHTML += `<textarea class="form-control" id="feedback" rows="3"></textarea>`
+    surveyHTML += `<textarea class="form-control" id="feedback" value="" rows="3"></textarea>`
     surveyHTML += `</div>`
     surveyHTML += `</form>`
-    surveyHTML += `<div class="d-grid gap-2 col-6 mx-auto">`
-    surveyHTML += `<button id="btnReview" class="btn btn-primary" type="button">Review</button>`
+    surveyHTML += `<div class="d-grid gap-2 col-6  p-2 mx-auto">`
+    surveyHTML += `<button id="btnSubmit" class="btn btn-primary" type="button">Submit</button>`
     surveyHTML += `</div>`
     return surveyHTML
 }
@@ -116,6 +121,7 @@ const setToStorage = () => {
         const surveyState = document.querySelector("#inputState").value
         const surveyHomePhone = document.querySelector("#homePhoneNumber").value.replaceAll('-', "")
         const surveyMobilePhone = document.querySelector("#mobilePhoneNumber").value.replaceAll('-', "")
+        const surveyEmail = document.querySelector("#inputEmail").value
         const surveyFeedback = document.querySelector("#feedback").value
         surveyObject = {
             firstName: surveyFirstName,
@@ -126,6 +132,7 @@ const setToStorage = () => {
             state: surveyState,
             homePhone: parseInt(surveyHomePhone),
             mobilePhone: parseInt(surveyMobilePhone),
+            emailAddress: surveyEmail,
             feedback: surveyFeedback
         }
         sessionStorage.setItem("survey_input", JSON.stringify(surveyObject));
@@ -142,8 +149,8 @@ mainContainer.addEventListener("input", (event) => {
 })
 
 mainContainer.addEventListener("click", (event) => {
-    if(event.target.id.startsWith("btnReview")){
+    if(event.target.id.startsWith("btnSubmit")) {
+        postToApi(parsedSurveyInput)
         event.preventDefault()
-        mainContainer.innerHTML = surveyReviewForm();
     }
 })
