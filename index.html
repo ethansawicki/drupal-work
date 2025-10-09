@@ -5,33 +5,16 @@
         <title>Test</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="./css/main.css">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
     </head>
-    <body id="root">
-        <div class="navigationContainer">
-            <nav>
-                <a href="#/">Home</a>
-                <button id="photo-button">Photos</button>
-                <a href="#/survey">Survey</a>
-            </nav>
+    <body>
+        <div id="navigationContainer" class="sticky-sm-top sticky-md-top sticky-lg-top sticky-xl-top"></div>
+        <div id="app" class="container-fluid bg-body-tertiary">
+            <div id="mainContainer" class="container-sm p-sm-2 p-md-2 p-lg-2 p-xl-4 p-xxl-4 text-bg-light"></div>
         </div>
-        <div id="modalContainer"></div>
-        <div id="mainContainer" class="container-md bg-light text-dark"></div>
-        <script async src="https://cdn.jsdelivr.net/npm/es-module-shims@1/dist/es-module-shims.min.js" crossorigin="anonymous"></script>
-    <script type="importmap">
-    {
-      "imports": {
-        "@popperjs/core": "https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/esm/popper.min.js",
-        "bootstrap": "https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.esm.min.js"
-      }
-    }
-    </script>
-    <script type="module">
-      import * as bootstrap from 'bootstrap'
-
-      new bootstrap.Popover(document.getElementById('popoverButton'))
-    </script>
+        <footer id="footerContainer" class="mt-auto bg-dark-subtle"></footer>
+        <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script type="module" src="./js/main.js"></script>
     </body>
 </html>

@@ -1,114 +1,116 @@
 import { postToApi } from "../fetch.js"
-const mainContainer = document.querySelector("#mainContainer")
-
+//Move states to dynamically add one via the select drop down
 export let surveyObject = {}
-const state = []//Move states to dynamically add one via the select drop down
+const state = [{"name":"Alabama","abbreviation":"AL"},{"name":"Alaska","abbreviation":"AK"},
+                {"name":"Arizona","abbreviation":"AZ"},{"name":"Arkansas","abbreviation":"AR"},
+                {"name":"California","abbreviation":"CA"},{"name":"Colorado","abbreviation":"CO"},
+                {"name":"Connecticut","abbreviation":"CT"},{"name":"Delaware","abbreviation":"DE"},
+                {"name":"Florida","abbreviation":"FL"},{"name":"Georgia","abbreviation":"GA"},
+                {"name":"Hawaii","abbreviation":"HI"},{"name":"Idaho","abbreviation":"ID"},
+                {"name":"Illinois","abbreviation":"IL"},{"name":"Indiana","abbreviation":"IN"},
+                {"name":"Iowa","abbreviation":"IA"},{"name":"Kansas","abbreviation":"KS"},
+                {"name":"Kentucky","abbreviation":"KY"},{"name":"Louisiana","abbreviation":"LA"},
+                {"name":"Maine","abbreviation":"ME"},{"name":"Maryland","abbreviation":"MD"},
+                {"name":"Massachusetts","abbreviation":"MA"},{"name":"Michigan","abbreviation":"MI"},
+                {"name":"Minnesota","abbreviation":"MN"},{"name":"Mississippi","abbreviation":"MS"},
+                {"name":"Missouri","abbreviation":"MO"},{"name":"Montana","abbreviation":"MT"},
+                {"name":"Nebraska","abbreviation":"NE"},{"name":"Nevada","abbreviation":"NV"},
+                {"name":"New Hampshire","abbreviation":"NH"},{"name":"New Jersey","abbreviation":"NJ"},
+                {"name":"New Mexico","abbreviation":"NM"},{"name":"New York","abbreviation":"NY"},
+                {"name":"North Carolina","abbreviation":"NC"},{"name":"North Dakota","abbreviation":"ND"},
+                {"name":"Ohio","abbreviation":"OH"},{"name":"Oklahoma","abbreviation":"OK"},
+                {"name":"Oregon","abbreviation":"OR"},{"name":"Pennsylvania","abbreviation":"PA"},
+                {"name":"Rhode Island","abbreviation":"RI"},{"name":"South Carolina","abbreviation":"SC"},
+                {"name":"South Dakota","abbreviation":"SD"},{"name":"Tennessee","abbreviation":"TN"},
+                {"name":"Texas","abbreviation":"TX"},{"name":"Utah","abbreviation":"UT"},
+                {"name":"Vermont","abbreviation":"VT"},{"name":"Virginia","abbreviation":"VA"},
+                {"name":"Washington","abbreviation":"WA"},{"name":"West Virginia","abbreviation":"WV"},
+                {"name":"Wisconsin","abbreviation":"WI"},{"name":"Wyoming","abbreviation":"WY"}]
+
 const surveyDelay = 1000
 const surveyInput = sessionStorage.getItem("survey_input")
 const parsedSurveyInput = JSON.parse(surveyInput)
 let timer;
 
+const statesOptionTag = (state) => {
+    let optionHTML = `<option value="${state.abbreviation}">${state.name}</option>`
+    return optionHTML
+}
+const statesOption = () => {
+    const states = state.map(state => ({...state}))
+    let allStates = states.map(statesOptionTag).join("")
+    return allStates
+}
 //still needs form validation & styling is set via class="" value
 export const surveyForm = () => {
     let surveyHTML = ``
+    surveyHTML += `<h3 class="text-center">Survey Title</h3>`
     surveyHTML += `<form id="surveyFormInput" class="row g-3">`
     surveyHTML += `<div class="col-md-6">`
     surveyHTML += `<label for="inputFirstName" class="form-label">First Name</label>`
-    surveyHTML += `<input type="text" placeholder="eg. John" class="form-control" value="" id="inputFirstName" required></input>`
+    surveyHTML += `<input type="text" placeholder="eg. John" class="form-control form-control-lg" value="" id="inputFirstName" required></input>`
     surveyHTML += `</div>`
     surveyHTML += `<div class="col-md-6">`
     surveyHTML += `<label for="inputLastName" class="form-label">Last Name</label>`
-    surveyHTML += `<input type=text placeholder="eg. Doe" class="form-control" value="" id="inputLastName" required></input>`
+    surveyHTML += `<input type=text placeholder="eg. Doe" class="form-control form-control-lg" value="" id="inputLastName" required></input>`
     surveyHTML += `</div>`
-    surveyHTML += `<div class="col-12">`
+    surveyHTML += `<div class="col-md-6">`
     surveyHTML += `<label for="inputAddress" class="form-label">Address</label>`
-    surveyHTML += `<input type="text" class="form-control" id="inputAddress" value="" placeholder="1234 Main St" required></input>`
+    surveyHTML += `<input type="text" class="form-control form-control-lg" id="inputAddress" value="" placeholder="1234 Main St" required></input>`
     surveyHTML += `</div>`
-    surveyHTML += `<div class="col-md-12">`
+    surveyHTML += `<div class="col-md-6">`
     surveyHTML += `<label for="inputAddress2" class="form-label">Address 2</label>`
-    surveyHTML += `<input type="text" class="form-control" id="inputAddress2" value="" placeholder="Apt, Studio, or Floor #"></input>`
+    surveyHTML += `<input type="text" class="form-control form-control-lg" id="inputAddress2" value="" placeholder="Apt, Studio, or Floor #"></input>`
     surveyHTML += `</div>`
     surveyHTML += `<div class="col-md-6">`
     surveyHTML += `<label for="inputCity" class="form-label">City</label>`
-    surveyHTML += `<input type="text" class="form-control" id="inputCity" value="" required></input>`
+    surveyHTML += `<input type="text" class="form-control form-control-lg" id="inputCity" value="" required></input>`
     surveyHTML += `</div>`
-    surveyHTML += `<div class="col-md-6">`
+    surveyHTML += `<div class="col-md-4">`
     surveyHTML += `<label for="inputState" class="form-label">State</label>`
-    surveyHTML += `<select id="inputState" class="form-select" required>`
+    surveyHTML += `<select id="inputState" class="form-control form-control-lg" required>`
     surveyHTML += `<option selected>Select State</option>`
-    surveyHTML += `<option value="AL">Alabama</option>
-                    <option value="AK">Alaska</option>
-                    <option value="AZ">Arizona</option>
-                    <option value="AR">Arkansas</option>
-                    <option value="CA">California</option>
-                    <option value="CO">Colorado</option>
-                    <option value="CT">Connecticut</option>
-                    <option value="DE">Delaware</option>
-                    <option value="DC">District Of Columbia</option>
-                    <option value="FL">Florida</option>
-                    <option value="GA">Georgia</option>
-                    <option value="HI">Hawaii</option>
-                    <option value="ID">Idaho</option>
-                    <option value="IL">Illinois</option>
-                    <option value="IN">Indiana</option>
-                    <option value="IA">Iowa</option>
-                    <option value="KS">Kansas</option>
-                    <option value="KY">Kentucky</option>
-                    <option value="LA">Louisiana</option>
-                    <option value="ME">Maine</option>
-                    <option value="MD">Maryland</option>
-                    <option value="MA">Massachusetts</option>
-                    <option value="MI">Michigan</option>
-                    <option value="MN">Minnesota</option>
-                    <option value="MS">Mississippi</option>
-                    <option value="MO">Missouri</option>
-                    <option value="MT">Montana</option>
-                    <option value="NE">Nebraska</option>
-                    <option value="NV">Nevada</option>
-                    <option value="NH">New Hampshire</option>
-                    <option value="NJ">New Jersey</option>
-                    <option value="NM">New Mexico</option>
-                    <option value="NY">New York</option>
-                    <option value="NC">North Carolina</option>
-                    <option value="ND">North Dakota</option>
-                    <option value="OH">Ohio</option>
-                    <option value="OK">Oklahoma</option>
-                    <option value="OR">Oregon</option>
-                    <option value="PA">Pennsylvania</option>
-                    <option value="RI">Rhode Island</option>
-                    <option value="SC">South Carolina</option>
-                    <option value="SD">South Dakota</option>
-                    <option value="TN">Tennessee</option>
-                    <option value="TX">Texas</option>
-                    <option value="UT">Utah</option>
-                    <option value="VT">Vermont</option>
-                    <option value="VA">Virginia</option>
-                    <option value="WA">Washington</option>
-                    <option value="WV">West Virginia</option>
-                    <option value="WI">Wisconsin</option>
-                    <option value="WY">Wyoming</option>`
+    surveyHTML += statesOption()
     surveyHTML += `</select>`
+    surveyHTML += `</div>`
+    surveyHTML += `<div class="col-md-2">`
+    surveyHTML += `<label for="zipCode" class="form-label">Zip Code</label>`
+    surveyHTML += `<input type="text" class="form-control form-control-lg" id="zipCode" value=""></input>`
     surveyHTML += `</div>`
     surveyHTML += `<div class="col-md-6">`
     surveyHTML += `<label for="homePhoneNumber" class="form-label">Home Phone Number</label>`
-    surveyHTML += `<input type="tel" class="form-control" id="homePhoneNumber" value=""></input>`
+    surveyHTML += `<input type="tel" class="form-control form-control-lg" id="homePhoneNumber" value=""></input>`
     surveyHTML += `</div>`
     surveyHTML += `<div class="col-md-6">`
     surveyHTML += `<label for="mobilePhoneNumber" class="form-label">Mobile Phone Number</label>`
-    surveyHTML += `<input type="tel" class="form-control" id="mobilePhoneNumber" value="" required></input>`
+    surveyHTML += `<input type="tel" class="form-control form-control-lg" id="mobilePhoneNumber" value="" required></input>`
     surveyHTML += `</div>`
     surveyHTML += `<div class="col-md-6">`
     surveyHTML += `<label for="inputEmail" class="form-label">Email Address</label>`
-    surveyHTML += `<input type="email" class="form-control" id="inputEmail" value="" placeholder="emailaddress@example.com" required></input>`
+    surveyHTML += `<input type="email" class="form-control form-control-lg" id="inputEmail" value="" placeholder="emailaddress@example.com" required></input>`
     surveyHTML += `</div>`
     surveyHTML += `<div class="col-md-6">`
     surveyHTML += `<label for="feedback" class="form-label">Feedback</label>`
-    surveyHTML += `<textarea class="form-control" id="feedback" value="" rows="3"></textarea>`
+    surveyHTML += `<textarea class="form-control form-control-lg" id="feedback" value="" rows="3"></textarea>`
     surveyHTML += `</div>`
-    surveyHTML += `</form>`
-    surveyHTML += `<div class="d-grid gap-2 col-6  p-2 mx-auto">`
+    surveyHTML += `<div class="d-grid gap-2 p-2 col-md-6">`
     surveyHTML += `<button id="btnSubmit" class="btn btn-primary" type="button">Submit</button>`
     surveyHTML += `</div>`
+    surveyHTML += `</form>`
+
+    const formContainer = document.querySelector('#surveyFormInput')
+
+    formContainer?.addEventListener("input", (event) => {
+        event.stopPropagation()
+        autoSaveTimeout()
+    })
+
+    formContainer?.addEventListener("click", (event) => {
+        if(event.target.id.startsWith("btnSubmit")) {
+            postToApi(parsedSurveyInput)
+            event.preventDefault()
+        }
+    })
     return surveyHTML
 }
 
@@ -143,14 +145,14 @@ const autoSaveTimeout = () => {
     timer = setTimeout(() => setToStorage(), surveyDelay)
 }
 
-mainContainer.addEventListener("input", (event) => {
-    event.stopPropagation()
-    autoSaveTimeout()
-})
+// mainContainer.addEventListener("input", (event) => {
+//     event.stopPropagation()
+//     autoSaveTimeout()
+// })
 
-mainContainer.addEventListener("click", (event) => {
-    if(event.target.id.startsWith("btnSubmit")) {
-        postToApi(parsedSurveyInput)
-        event.preventDefault()
-    }
-})
+// mainContainer.addEventListener("click", (event) => {
+//     if(event.target.id.startsWith("btnSubmit")) {
+//         postToApi(parsedSurveyInput)
+//         event.preventDefault()
+//     }
+// })

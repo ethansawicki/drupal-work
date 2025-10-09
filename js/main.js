@@ -1,35 +1,31 @@
+import { navBar } from "./navigation/navComponent.js";
 import { routes } from "./spaRouter/router.js";
-import {mainPhotoContainer} from "./photoComponents/photosRender.js"
-import { getFromApi } from "./fetch.js";
+import {footerRender} from "./footer.js"
+
+const navContainer = document.querySelector('#navigationContainer')
+const footerContainer = document.querySelector('#footerContainer')
 
 
-//ignore most things in here if not all.
-const mainContainer = document.querySelector('#mainContainer')
-
+const renderApp = async () => {
+    navContainer.innerHTML = navBar()
+    footerContainer.innerHTML = footerRender()
+}
+renderApp()
 const state = {
     currentPage: 'home',
     isLoading: false
-}
+};
 
-const updateState = (newState) => {
-    Object.assign(state, newState)
+function updateState(newState) {
+    Object.assign(state, newState);
     renderContent();
 }
 
-const renderContent = () => {
-    const mainDiv = document.getElementById('mainContainer')
-    if(state.isLoading) {
-        mainDiv.innerHTML = '<div>Loading...</div>'
-        return
+function renderContent() {
+    const appDiv = document.getElementById('mainContainer');
+    if (state.isLoading) {
+        appDiv.innerHTML = '<div>Loading...</div>';
+        return;
     }
-    mainDiv.innerHTML = routes[window.location.hash || '#/'];
+    appDiv.innerHTML = routes[window.location.hash || '#/']();
 }
-
-const renderPhotos = async () => {
-    await getFromApi()
-    mainContainer.innerHTML = await mainPhotoContainer()
-}
-
-mainContainer.addEventListener('renderPhotos', async () => {
-   await renderPhotos()
-})
