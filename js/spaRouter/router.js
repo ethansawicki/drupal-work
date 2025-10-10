@@ -10,7 +10,6 @@ export const routes = {
 };
 
 export const handleRoute = async () => {
-    await getFromApi()
     const hash = window.location.hash || "#/"
     const content = routes[hash] ? routes[hash] : `<h1>404</h1>`
     document.getElementById("mainContainer").innerHTML = await content

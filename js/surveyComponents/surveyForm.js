@@ -1,4 +1,5 @@
 import { postToApi } from "../fetch.js"
+const mainContainer = document.querySelector('#mainContainer')
 //Move states to dynamically add one via the select drop down
 export let surveyObject = {}
 const state = [{"name":"Alabama","abbreviation":"AL"},{"name":"Alaska","abbreviation":"AK"},
@@ -44,73 +45,63 @@ const statesOption = () => {
 //still needs form validation & styling is set via class="" value
 export const surveyForm = () => {
     let surveyHTML = ``
+    surveyHTML += `<div class="container-md row">`
     surveyHTML += `<h3 class="text-center">Survey Title</h3>`
-    surveyHTML += `<form id="surveyFormInput" class="row g-3">`
-    surveyHTML += `<div class="col-md-6">`
+    surveyHTML += `<form id="surveyFormInput" class="col g-3">`
+    surveyHTML += `<div class="col-md-6 mx-sm-auto mx-md-auto mx-lg-auto mx-xl-auto">`
     surveyHTML += `<label for="inputFirstName" class="form-label">First Name</label>`
     surveyHTML += `<input type="text" placeholder="eg. John" class="form-control form-control-lg" value="" id="inputFirstName" required></input>`
     surveyHTML += `</div>`
-    surveyHTML += `<div class="col-md-6">`
+    surveyHTML += `<div class="col-md-6 mx-sm-auto mx-md-auto mx-lg-auto mx-xl-auto">`
     surveyHTML += `<label for="inputLastName" class="form-label">Last Name</label>`
     surveyHTML += `<input type=text placeholder="eg. Doe" class="form-control form-control-lg" value="" id="inputLastName" required></input>`
     surveyHTML += `</div>`
-    surveyHTML += `<div class="col-md-6">`
+    surveyHTML += `<div class="col-md-6 mx-sm-auto mx-md-auto mx-lg-auto mx-xl-auto">`
     surveyHTML += `<label for="inputAddress" class="form-label">Address</label>`
     surveyHTML += `<input type="text" class="form-control form-control-lg" id="inputAddress" value="" placeholder="1234 Main St" required></input>`
     surveyHTML += `</div>`
-    surveyHTML += `<div class="col-md-6">`
+    surveyHTML += `<div class="col-md-6 mx-sm-auto mx-md-auto mx-lg-auto mx-xl-auto">`
     surveyHTML += `<label for="inputAddress2" class="form-label">Address 2</label>`
     surveyHTML += `<input type="text" class="form-control form-control-lg" id="inputAddress2" value="" placeholder="Apt, Studio, or Floor #"></input>`
     surveyHTML += `</div>`
-    surveyHTML += `<div class="col-md-6">`
+    surveyHTML += `<div class="row justify-content-center">`
+    surveyHTML += `<div class="col-md-2">`
     surveyHTML += `<label for="inputCity" class="form-label">City</label>`
     surveyHTML += `<input type="text" class="form-control form-control-lg" id="inputCity" value="" required></input>`
     surveyHTML += `</div>`
-    surveyHTML += `<div class="col-md-4">`
+    surveyHTML += `<div class="col-md-2">`
     surveyHTML += `<label for="inputState" class="form-label">State</label>`
-    surveyHTML += `<select id="inputState" class="form-control form-control-lg" required>`
+    surveyHTML += `<select id="inputState" class="form-select form-select-lg" required>`
     surveyHTML += `<option selected>Select State</option>`
     surveyHTML += statesOption()
     surveyHTML += `</select>`
     surveyHTML += `</div>`
     surveyHTML += `<div class="col-md-2">`
     surveyHTML += `<label for="zipCode" class="form-label">Zip Code</label>`
-    surveyHTML += `<input type="text" class="form-control form-control-lg" id="zipCode" value=""></input>`
+    surveyHTML += `<input type="number" class="form-control form-control-lg" id="zipCode" value=""></input>`
     surveyHTML += `</div>`
-    surveyHTML += `<div class="col-md-6">`
+    surveyHTML += `</div>`
+    surveyHTML += `<div class="col-md-6 mx-sm-auto mx-md-auto mx-lg-auto mx-xl-auto">`
     surveyHTML += `<label for="homePhoneNumber" class="form-label">Home Phone Number</label>`
-    surveyHTML += `<input type="tel" class="form-control form-control-lg" id="homePhoneNumber" value=""></input>`
+    surveyHTML += `<input type="number" class="form-control form-control-lg" id="homePhoneNumber" value=""></input>`
     surveyHTML += `</div>`
-    surveyHTML += `<div class="col-md-6">`
+    surveyHTML += `<div class="col-md-6 mx-sm-auto mx-md-auto mx-lg-auto mx-xl-auto">`
     surveyHTML += `<label for="mobilePhoneNumber" class="form-label">Mobile Phone Number</label>`
-    surveyHTML += `<input type="tel" class="form-control form-control-lg" id="mobilePhoneNumber" value="" required></input>`
+    surveyHTML += `<input type="number" class="form-control form-control-lg" id="mobilePhoneNumber" value="" required></input>`
     surveyHTML += `</div>`
-    surveyHTML += `<div class="col-md-6">`
+    surveyHTML += `<div class="col-md-6 mx-sm-auto mx-md-auto mx-lg-auto mx-xl-auto">`
     surveyHTML += `<label for="inputEmail" class="form-label">Email Address</label>`
     surveyHTML += `<input type="email" class="form-control form-control-lg" id="inputEmail" value="" placeholder="emailaddress@example.com" required></input>`
     surveyHTML += `</div>`
-    surveyHTML += `<div class="col-md-6">`
+    surveyHTML += `<div class="col-md-6 mx-sm-auto mx-md-auto mx-lg-auto mx-xl-auto">`
     surveyHTML += `<label for="feedback" class="form-label">Feedback</label>`
     surveyHTML += `<textarea class="form-control form-control-lg" id="feedback" value="" rows="3"></textarea>`
     surveyHTML += `</div>`
-    surveyHTML += `<div class="d-grid gap-2 p-2 col-md-6">`
+    surveyHTML += `<div class="d-grid gap-2 p-2 col-md-6 mx-sm-auto mx-md-auto mx-lg-auto mx-xl-auto">`
     surveyHTML += `<button id="btnSubmit" class="btn btn-primary" type="button">Submit</button>`
     surveyHTML += `</div>`
     surveyHTML += `</form>`
-
-    const formContainer = document.querySelector('#surveyFormInput')
-
-    formContainer?.addEventListener("input", (event) => {
-        event.stopPropagation()
-        autoSaveTimeout()
-    })
-
-    formContainer?.addEventListener("click", (event) => {
-        if(event.target.id.startsWith("btnSubmit")) {
-            postToApi(parsedSurveyInput)
-            event.preventDefault()
-        }
-    })
+    surveyHTML += `</div>`
     return surveyHTML
 }
 
@@ -145,14 +136,14 @@ const autoSaveTimeout = () => {
     timer = setTimeout(() => setToStorage(), surveyDelay)
 }
 
-// mainContainer.addEventListener("input", (event) => {
-//     event.stopPropagation()
-//     autoSaveTimeout()
-// })
+mainContainer.addEventListener("input", (event) => {
+    event.stopPropagation()
+    autoSaveTimeout()
+})
 
-// mainContainer.addEventListener("click", (event) => {
-//     if(event.target.id.startsWith("btnSubmit")) {
-//         postToApi(parsedSurveyInput)
-//         event.preventDefault()
-//     }
-// })
+mainContainer.addEventListener("click", (event) => {
+    if(event.target.id.startsWith("btnSubmit")) {
+        postToApi(parsedSurveyInput)//need endpoint.
+        event.preventDefault()
+    }
+})
