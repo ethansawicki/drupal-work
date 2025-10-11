@@ -1,4 +1,3 @@
-import { getFromApi } from "../fetch.js";
 import { landingPageRender } from "../landingComponents/landingPageRender.js";
 import { mainPhotoContainer } from "../photoComponents/photosRender.js";
 import { surveyForm } from "../surveyComponents/surveyForm.js";
@@ -12,7 +11,7 @@ export const routes = {
 export const handleRoute = async () => {
     const hash = window.location.hash || "#/"
     const content = routes[hash] ? routes[hash] : `<h1>404</h1>`
-    document.getElementById("mainContainer").innerHTML = await content
+    document.querySelector("#mainContainer").innerHTML = await content
 }
 
 window.addEventListener('hashchange', handleRoute)

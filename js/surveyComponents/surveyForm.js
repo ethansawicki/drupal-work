@@ -1,5 +1,5 @@
 import { postToApi } from "../fetch.js"
-const mainContainer = document.querySelector('#mainContainer')
+const mainContainer = document.querySelector('#app')
 //Move states to dynamically add one via the select drop down
 export let surveyObject = {}
 const state = [{"name":"Alabama","abbreviation":"AL"},{"name":"Alaska","abbreviation":"AK"},
@@ -45,6 +45,7 @@ const statesOption = () => {
 //still needs form validation & styling is set via class="" value
 export const surveyForm = () => {
     let surveyHTML = ``
+    surveyHTML += `<div class="container-sm p-sm-2 p-md-2 p-lg-2 p-xl-4 p-xxl-4 bg-body-tertiary">`
     surveyHTML += `<div class="container-md row">`
     surveyHTML += `<h3 class="text-center">Survey Title</h3>`
     surveyHTML += `<form id="surveyFormInput" class="col g-3">`
@@ -101,6 +102,7 @@ export const surveyForm = () => {
     surveyHTML += `<button id="btnSubmit" class="btn btn-primary" type="button">Submit</button>`
     surveyHTML += `</div>`
     surveyHTML += `</form>`
+    surveyHTML += `</div>`
     surveyHTML += `</div>`
     return surveyHTML
 }
