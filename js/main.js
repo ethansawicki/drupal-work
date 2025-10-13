@@ -1,6 +1,7 @@
 import { navBar } from "./navigation/navComponent.js";
 import { routes } from "./spaRouter/router.js";
 import {footerRender} from "./footer.js"
+import { photoModal } from "./photoComponents/photoModal.js";
 
 const navDiv = document.createElement('div')
 const mainContainer = document.createElement('div')
@@ -11,8 +12,8 @@ navDiv.id = "navigationContainer"
 navDiv.classList.add("sticky-sm-top", "sticky-md-top", "sticky-lg-top", "sticky-xl-top")
 mainContainer.id = "mainContainer"
 footerDiv.id = "footer"
-footerDiv.classList.add("mt-auto", "bg-dark-subtle")
-document.querySelector('#body').appendChild(modalDiv)
+footerDiv.classList.add("mt-auto", "bg-dark")
+document.querySelector('#app').appendChild(modalDiv)
 document.querySelector('#app').appendChild(navDiv)
 document.querySelector('#app').appendChild(mainContainer)
 document.querySelector('#app').appendChild(footerDiv)
@@ -20,8 +21,10 @@ document.querySelector('#app').appendChild(footerDiv)
 const renderApp = () => {
     document.querySelector('#navigationContainer').innerHTML = navBar()
     document.querySelector('#footer').innerHTML = footerRender()
+    document.querySelector('#modalContainer').innerHTML = photoModal()
 }
 renderApp()
+export const modal = new bootstrap.Modal(modalDiv, {backdrop: "static"})
 const state = {
     currentPage: 'home',
     isLoading: false

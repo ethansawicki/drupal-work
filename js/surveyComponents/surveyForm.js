@@ -51,7 +51,7 @@ export const surveyForm = () => {
     surveyHTML += `<form id="surveyFormInput" class="col g-3">`
     surveyHTML += `<div class="col-md-6 mx-sm-auto mx-md-auto mx-lg-auto mx-xl-auto">`
     surveyHTML += `<label for="inputFirstName" class="form-label">First Name</label>`
-    surveyHTML += `<input type="text" placeholder="eg. John" class="form-control form-control-lg" value="" id="inputFirstName" required></input>`
+    surveyHTML += `<input type="text" placeholder="eg. John" class="form-control form-control-lg" value="${parsedSurveyInput ? parsedSurveyInput.firstname : ""}" id="inputFirstName" required></input>`
     surveyHTML += `</div>`
     surveyHTML += `<div class="col-md-6 mx-sm-auto mx-md-auto mx-lg-auto mx-xl-auto">`
     surveyHTML += `<label for="inputLastName" class="form-label">Last Name</label>`
