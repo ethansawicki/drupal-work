@@ -12,7 +12,7 @@ navDiv.id = "navigationContainer"
 navDiv.classList.add("sticky-sm-top", "sticky-md-top", "sticky-lg-top", "sticky-xl-top")
 mainContainer.id = "mainContainer"
 footerDiv.id = "footer"
-footerDiv.classList.add("mt-auto", "bg-dark")
+footerDiv.classList.add("mt-auto", "bg-dark", "text-light")
 document.querySelector('#app').appendChild(modalDiv)
 document.querySelector('#app').appendChild(navDiv)
 document.querySelector('#app').appendChild(mainContainer)
@@ -22,9 +22,9 @@ const renderApp = () => {
     document.querySelector('#navigationContainer').innerHTML = navBar()
     document.querySelector('#footer').innerHTML = footerRender()
     document.querySelector('#modalContainer').innerHTML = photoModal()
+    const modal = new bootstrap.Modal(document.getElementById('exampleModal'))
 }
 renderApp()
-export const modal = new bootstrap.Modal(modalDiv, {backdrop: "static"})
 const state = {
     currentPage: 'home',
     isLoading: false

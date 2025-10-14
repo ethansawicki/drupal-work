@@ -1,7 +1,7 @@
 
 
 export const footerRender = () => {
-    let footerHtml = `<div class="container mx-auto">
+    let footerHtml = `<div class="container">
     <div class="row mx-auto">
       <div class="col-md-4 m-3">
         <h5>About Us</h5>
@@ -10,17 +10,17 @@ export const footerRender = () => {
       <div class="col-md-4 m-3">
         <h5>Quick Links</h5>
         <ul class="list-unstyled">
-          <li><a href="#" class="text-decoration-none text-dark">Home</a></li>
-          <li><a href="#" class="text-decoration-none text-dark">Services</a></li>
-          <li><a href="#" class="text-decoration-none text-dark">Contact</a></li>
+          <li><a href="#" class="text-decoration-none text-light">Home</a></li>
+          <li><a href="#" class="text-decoration-none text-light">Services</a></li>
+          <li><a href="#" class="text-decoration-none text-light">Contact</a></li>
         </ul>
       </div>
-      <div class="col-md-4 m-3">
+      <div class="col-md-3 m-3">
         <h5>Follow Us</h5>
         <ul class="list-inline social-icons">
-          <li class="list-inline-item"><a href="#" class="text-dark"><i class="bi bi-twitter"></i></a></li>
-          <li class="list-inline-item"><a href="#" class="text-dark"><i class="bi bi-twitter"></i></a></li>
-          <li class="list-inline-item"><a href="#" class="text-dark"><i class="bi bi-instagram"></i></a></li>
+          <li class="list-inline-item"><a href="#" class="text-light"><i class="bi bi-twitter"></i></a></li>
+          <li class="list-inline-item"><a href="#" class="text-light"><i class="bi bi-facebook"></i></a></li>
+          <li class="list-inline-item"><a href="#" class="text-light"><i class="bi bi-instagram"></i></a></li>
         </ul>
       </div>
     </div>
