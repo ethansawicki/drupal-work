@@ -17,8 +17,8 @@ const mastHeads = {
 }
 export const handleRoute = async () => {
     const hash = window.location.hash || "#/"
-    const content = routes[hash] ? routes[hash] : `<h1>404</h1>`
-    const mastheadContent = mastHeads[hash] ?  mastHeads[hash] : `<h2>Uh Oh...</h2>`
+    const content = routes[hash] ? routes[hash] : `<h2>404</h2>`
+    const mastheadContent = mastHeads[hash] ?  mastHeads[hash] : `<h1>Uh Oh...</h1>`
     document.querySelector("#headerContainer").innerHTML = mastheadContent
     document.querySelector("#mainContainer").innerHTML = await content
 }

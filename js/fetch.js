@@ -5,6 +5,7 @@ const data = {
 //GET and POST API endpoints
 const getApi = "https://tetratechdev01.decisions.com/Primary/restapi/rtflex/post-processingapis/apis/stdailleanerhangertickets/restgetphotos/null?sessionid=NS-08db3c36-7e2b-d6bf-5216-4703e8014f32"
 //const postApi = "https://tetratechdev01.decisions.com/Primary/PostDataToFlow/Projects/RT%20Flex/RT%20Flex/Post-processing%20APIs/APIs/Std_AIl_Leaner_Hanger_Tickets/AIResultPostToFlowHandler"
+const surveyAPI = "https://tetratechdev01.decisions.com/Primary/PostDataToFlow/Projects/SupportTesting/Integrations/Charlotte%20Project/Drupal%20Flows/Post%20To%20Flow%20Handler%20drupal"
 
 //Get
 export const getFromApi = async () => {
@@ -28,9 +29,9 @@ export const postToApi = async (data) => {
         },
         body: JSON.stringify(data)
         }
-        const toAPI = await fetch(post)
+        const toAPI = await fetch(surveyAPI, post)
         const responseJSON = await toAPI.json()
-
+        console.log(await responseJSON)
     } catch (error) {
         console.error(error)
     }
