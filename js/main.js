@@ -26,7 +26,7 @@ const renderApp = () => {
     document.querySelector('#navigationContainer').innerHTML = navBar()
     document.querySelector('#footer').innerHTML = footerRender()
     document.querySelector('#modalContainer').innerHTML = photoModal()
-    const modal = new bootstrap.Modal(document.getElementById('exampleModal'))
+    const modal = new bootstrap.Modal(document.getElementById('exampleModal')) //not sure if this actually works to create new modal but modal opens and closes
 }
 renderApp()
 const state = {

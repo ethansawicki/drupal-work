@@ -21,6 +21,16 @@ export const handleRoute = async () => {
     const mastheadContent = mastHeads[hash] ?  mastHeads[hash] : `<h1>Uh Oh...</h1>`
     document.querySelector("#headerContainer").innerHTML = mastheadContent
     document.querySelector("#mainContainer").innerHTML = await content
+    const navLinks = document.querySelectorAll('.nav-link')
+    navLinks.forEach(link => {
+        if(link.getAttribute('href') === hash) {
+            link.classList.add('active')
+            link.setAttribute('aria-current', 'page')
+        } else {
+            link.classList.remove('active')
+            link.removeAttribute('aria-current')
+        }
+    })
 }
 
 window.addEventListener('hashchange', handleRoute)
