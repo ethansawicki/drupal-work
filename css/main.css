@@ -15,3 +15,7 @@
         }
     }
 }
+
+#headerContainer {
+    background-image: url(../assets/placeholder-img.jpg);
+}

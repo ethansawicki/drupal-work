@@ -1,11 +1,12 @@
 
-//need to align nav links to right so WIP and no idea if the "Active page" works cant tell
+//aligned to right side and "Active" page works.
 export const navBar = () => {
     let html = `
-    <div id="navigationCont" class="sticky-sm-top sticky-md-top sticky-lg-top sticky-xl-top">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container px-5">
-                <a class="navbar-brand" href="#/">Test</a>
+                <a class="navbar-brand" href="#/">
+                <i class="bi bi-tsunami"></i>
+                Test</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
                 </button>
@@ -23,8 +24,6 @@ export const navBar = () => {
                     </ul>
                 </div>
             </div>
-        </nav>
-    </div>`
-    
+        </nav>`
     return html
 }

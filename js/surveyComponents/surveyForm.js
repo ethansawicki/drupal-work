@@ -47,7 +47,6 @@ export const surveyForm = () => {
     let surveyHTML = ``
     surveyHTML += `<div class="container-sm p-sm-2 p-md-2 p-lg-2 p-xl-4 p-xxl-4 bg-body-tertiary">`
     surveyHTML += `<div class="container-md row">`
-    surveyHTML += `<h3 class="text-center">Survey Title</h3>`
     surveyHTML += `<form id="surveyFormInput" class="col g-3">`
     surveyHTML += `<div class="col-md-6 mx-sm-auto mx-md-auto mx-lg-auto mx-xl-auto">`
     surveyHTML += `<label for="inputFirstName" class="form-label">First Name</label>`
@@ -98,8 +97,8 @@ export const surveyForm = () => {
     surveyHTML += `<label for="feedback" class="form-label">Feedback</label>`
     surveyHTML += `<textarea class="form-control form-control-lg" id="feedback" value="" rows="3"></textarea>`
     surveyHTML += `</div>`
-    surveyHTML += `<div class="d-grid gap-2 p-2 col-md-6 mx-sm-auto mx-md-auto mx-lg-auto mx-xl-auto">`
-    surveyHTML += `<button id="btnSubmit" class="btn btn-primary" type="button">Submit</button>`
+    surveyHTML += `<div class="d-grid gap-2 py-3 col-md-6 mx-sm-auto mx-md-auto mx-lg-auto mx-xl-auto">`
+    surveyHTML += `<button id="btnSubmit" class="btn btn-primary btn-lg" type="button">Submit</button>`
     surveyHTML += `</div>`
     surveyHTML += `</form>`
     surveyHTML += `</div>`
